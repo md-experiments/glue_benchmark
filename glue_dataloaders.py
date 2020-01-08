@@ -1,3 +1,6 @@
+from torchtext import data
+
+
 def load_BERT_data(paths, tokenizer, BATCH_SIZE=128,seed=1234):
   init_token_idx = tokenizer.cls_token_id
   eos_token_idx = tokenizer.sep_token_id
