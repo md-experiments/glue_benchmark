@@ -33,7 +33,7 @@ class BERTGRUSentiment(nn.Module):
         #text = [batch size, sent len]
                 
         with torch.no_grad():
-            embedded = bert(text)[0]
+            embedded = self.bert(text)[0]
                 
         #embedded = [batch size, sent len, emb dim]
         
@@ -91,8 +91,8 @@ class BERTGRUSimilarity(nn.Module):
         #text = [batch size, sent len]
                 
         with torch.no_grad():
-            embedded1 = bert(text1)[0]
-            embedded2 = bert(text2)[0]   
+            embedded1 = self.bert(text1)[0]
+            embedded2 = self.bert(text2)[0]   
         #embedded = [batch size, sent len, emb dim]
         
         _, hidden1 = self.rnn(embedded1)
