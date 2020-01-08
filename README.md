@@ -9,7 +9,7 @@ Apart from measuring the progress of research in NLP and NLP transfer learning, 
 
 | Index | Description | Inputs | Target | Metric | SOTA | Best here |
 |----|----|----|----|----|----|----|
-|CoLA | Linguistic acceptability | Sent1 & 2 | Binary | Accuracy | 75% | 76% |
+|CoLA | Linguistic acceptability | Sent1 & 2 | Binary | Accuracy | 75% | 74% |
 | SST-2 | Sentiment analysis | Sent1 | Regression | Correlation | 97% | 91% |
 | MRPC | Sentence equivalence | Sent1, Sent2 | Binary | Accuracy | | |
 | STS-B | Meaning similarity | Sent1, Sent2 | Regression | Correlation | | |
