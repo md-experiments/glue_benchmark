@@ -1,4 +1,4 @@
-def train(model, iterator, optimizer, criterion):
+def train(model, iterator, optimizer, criterion, metric, task_type):
     
     epoch_loss = 0
     epoch_acc = 0
@@ -16,7 +16,7 @@ def train(model, iterator, optimizer, criterion):
         
         loss = criterion(predictions, batch.label)
         
-        acc = binary_accuracy(predictions, batch.label)
+        acc = metric(predictions, batch.label)
         
         loss.backward()
         
@@ -27,7 +27,7 @@ def train(model, iterator, optimizer, criterion):
         
     return epoch_loss / len(iterator), epoch_acc / len(iterator)
 
-def evaluate(model, iterator, criterion):
+def evaluate(model, iterator, criterion, metric, task_type):
     
     epoch_loss = 0
     epoch_acc = 0
@@ -45,7 +45,7 @@ def evaluate(model, iterator, criterion):
             
             loss = criterion(predictions, batch.label)
             
-            acc = binary_accuracy(predictions, batch.label)
+            acc = metric(predictions, batch.label)
 
             epoch_loss += loss.item()
             epoch_acc += acc.item()
