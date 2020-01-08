@@ -1,7 +1,7 @@
 from torchtext import data
 import torch
 
-def load_BERT_data(paths, tokenizer, BATCH_SIZE=128,seed=1234):
+def load_BERT_data(paths, tokenizer, device, BATCH_SIZE=128,seed=1234):
   init_token_idx = tokenizer.cls_token_id
   eos_token_idx = tokenizer.sep_token_id
   pad_token_idx = tokenizer.pad_token_id
@@ -52,12 +52,15 @@ def load_BERT_data(paths, tokenizer, BATCH_SIZE=128,seed=1234):
     trn_data, val_data = data.TabularDataset(trn_path,'tsv', fields=trn_schema)
     tst_data = data.TabularDataset(tst_path,'tsv', fields=tst_schema)
 
-  device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-  
+  #device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+  assert(device==torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
+
+
   LABEL.build_vocab(trn_data)
   trn_iter, val_iter, tst_iter = data.Iterator.splits(  #BucketIterator
       (trn_data, val_data, tst_data), 
       #sort_key=lambda x: len(x.text),
+      sort=False,
       batch_size = BATCH_SIZE, 
       device = device)
 
