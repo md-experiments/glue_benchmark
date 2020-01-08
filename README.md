@@ -1,8 +1,11 @@
 # glue-benchmark
 take on how close we can get to a flexible glue-benchmark where it matters.
 
-# Why
+## Why
 Apart from measuring the progress of research in NLP and NLP transfer learning, the Glue collection offers a good and varied set of low level NLP capabilities which can be used in a variety of higher level solutions. For instance, in large text & news corpora discerning entailment is key to reducing the volume of inputs as well as identifying truly new information.
+
+
+## Glue Tasks
 
 | Index | Description | Inputs | Target | Metric | SOTA | Best here |
 |--|--|--|--|--|
@@ -17,3 +20,7 @@ Apart from measuring the progress of research in NLP and NLP transfer learning, 
 | RTE | Recognising Textual Entailment | Sent1, Sent2 | entailment, contradiction, or neutral | Accuracy, F1 | | |
 | WNLI | Winograd Schema, Pronoun ambiguity where the answer requires world knowledge and not only grammatical context | Sent1, Sent2 | entailment, contradiction, or neutral | Accuracy, F1 | | |
 | AX | DiagnosticMain, Different entailment relationships of arbitrary size predominantly for diagnostic purposes | Sent1, Sent2 | entailment, contradiction, or neutral | Accuracy, F1 |  |  . |
+
+Some of the above are not necessarily relevant
+
+Source: `gluebenchmark.com` : <https://gluebenchmark.com>
