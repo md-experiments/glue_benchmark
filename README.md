@@ -1,8 +1,8 @@
 # glue-benchmark
-take on how close we can get to a flexible glue-benchmark where it matters
+take on how close we can get to a flexible glue-benchmark where it matters.
 
 # Why
-Apart from measuring the progress of research in NLP and NLP transfer learning, the Glue collection offers a good and varied set of low level NLP capabilities which can be used in a variety of higher level solutions. For instance, in large text & news corpora discerning entailment is key to reducing the volume of inputs as well as identifying truly new information
+Apart from measuring the progress of research in NLP and NLP transfer learning, the Glue collection offers a good and varied set of low level NLP capabilities which can be used in a variety of higher level solutions. For instance, in large text & news corpora discerning entailment is key to reducing the volume of inputs as well as identifying truly new information.
 
 | Index | Description | Inputs | Target | Metric | SOTA | Best here |
 |--|--|--|--|--|
