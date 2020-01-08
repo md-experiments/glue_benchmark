@@ -1,5 +1,6 @@
 
 import torch.nn as nn
+import torch
 
 class BERTGRUSentiment(nn.Module):
     def __init__(self,
