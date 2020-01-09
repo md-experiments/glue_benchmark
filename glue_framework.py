@@ -138,8 +138,8 @@ def train_model(trn_iter, val_iter, model, optimizer, criterion, metric, exp_nam
       new_val=[exp_name, epoch, epoch_mins, epoch_secs, train_loss, train_acc, valid_loss, valid_acc, ]
       model_res=model_res+[new_val]
     
-    df=pd.DataFrame(model_res, columns=log_col)
-    return df
+  df=pd.DataFrame(model_res, columns=log_col)
+  return df
 
 def train_variables(bert, task_type):
   HIDDEN_DIM = 256
