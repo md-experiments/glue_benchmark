@@ -31,7 +31,7 @@ def prep_inputs_masks(df, category_dict, tokenizer, task=0, MAX_LEN=128):
   # Create sentence and label lists
   sentences = df.sent.values
 
-  labels = df.label.apply(lambda x: int(category_dict[x])).values
+  labels = df.label.apply(lambda x: category_dict[x]).values
 
 
   # We need to add special tokens at the beginning and end of each sentence for BERT to work properly
