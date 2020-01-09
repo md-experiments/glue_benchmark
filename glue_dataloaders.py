@@ -60,7 +60,7 @@ def prep_inputs_masks(df, category_dict, tokenizer, task=0, MAX_LEN=128):
 def gen_DataLoader(train_inputs, train_labels, batch_size = 32):
   train_data = TensorDataset(train_inputs, train_labels)
   train_sampler = RandomSampler(train_data)
-  train_dataloader = DataLoader(train_data, sampler=train_sampler, batch_size=batch_size)
+  train_dataloader = DataLoader(train_data, sampler=train_sampler, batch_size=batch_size,pin_memory=True,num_workers=4)
   return train_dataloader
 
 def datagen_BERT(path, header, columns_dict, category_dict, tokenizer, task, batch_size, max_len=128):
