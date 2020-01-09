@@ -11,9 +11,12 @@ def train(model, iterator, optimizer, criterion, metric, device):
         
         optimizer.zero_grad()
         
-        batch = tuple(t.to(device) for t in batch)
-        #if task_type=='sentiment':
-        text, label = batch
+        if type(batch)== torch.utils.data.dataloader.DataLoader:
+          batch = tuple(t.to(device) for t in batch)
+          #if task_type=='sentiment':
+          text, label = batch
+        elif type(batch)== torchtext.data.iterator.Iterator:
+          text, label = batch.text, batch.label
         predictions = model(text).squeeze(1)
         #predictions = model(batch.text).squeeze(1)
         '''
@@ -45,10 +48,12 @@ def evaluate(model, iterator, criterion, metric, device):
     with torch.no_grad():
     
         for batch in iterator:
-            batch = tuple(t.to(device) for t in batch)
-            #if task_type=='sentiment':
-            text, label = batch
-
+            if type(batch)== torch.utils.data.dataloader.DataLoader:
+              batch = tuple(t.to(device) for t in batch)
+              #if task_type=='sentiment':
+              text, label = batch
+            elif type(batch)== torchtext.data.iterator.Iterator:
+              text, label = batch.text, batch.label
             predictions = model(text).squeeze(1)
             
             loss = criterion(predictions, label)
