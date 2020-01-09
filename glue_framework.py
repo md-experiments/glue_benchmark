@@ -15,7 +15,7 @@ def train(model, iterator, optimizer, criterion, metric, device):
           text, label = batch.text, batch.label
         #if type(batch)== torch.utils.data.dataloader.DataLoader:
         except:
-          #batch = tuple(t.to(device) for t in batch)
+          batch = tuple(t.to(device) for t in batch)
           #if task_type=='sentiment':
           text, label = batch
         #elif type(batch)== torchtext.data.iterator.Iterator:
@@ -55,7 +55,7 @@ def evaluate(model, iterator, criterion, metric, device):
               text, label = batch.text, batch.label
             #if type(batch)== torch.utils.data.dataloader.DataLoader:
             except:
-              #batch = tuple(t.to(device) for t in batch)
+              batch = tuple(t.to(device) for t in batch)
               #if task_type=='sentiment':
               text, label = batch
             predictions = model(text).squeeze(1)
