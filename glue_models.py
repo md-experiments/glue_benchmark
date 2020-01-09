@@ -114,3 +114,43 @@ class BERTGRUSimilarity(nn.Module):
         logits = -self.__batch_dist__(output1, output2)
         #_, pred = torch.max(logits.view(-1, N), 1)        
         return logits
+
+
+def train_variables(bert, task_type):
+  HIDDEN_DIM = 256
+  OUTPUT_DIM = 1
+  N_LAYERS = 2
+  BIDIRECTIONAL = True
+  DROPOUT = 0.25
+
+  import torch.optim as optim
+
+
+  model = BERTGRUSentiment(bert,
+                          HIDDEN_DIM,
+                          OUTPUT_DIM,
+                          N_LAYERS,
+                          BIDIRECTIONAL,
+                          DROPOUT)
+
+
+  def count_parameters(model):
+      return sum(p.numel() for p in model.parameters() if p.requires_grad)
+
+  print(f'The model has {count_parameters(model):,} trainable parameters')
+  print('Fix BERT parameters')
+  for name, param in model.named_parameters():                
+      if name.startswith('bert'):
+          param.requires_grad = False
+  print(f'The model has {count_parameters(model):,} trainable parameters')
+
+  ### --- Optimizer & Loss --- ###
+  optimizer = optim.Adam(model.parameters())
+  criterion = nn.BCEWithLogitsLoss()
+
+  if device.type=='cuda':
+    model = model.to(device)
+    criterion = criterion.to(device)
+    print('Model & Loss moved to cuda')
+  
+  return model, criterion, optimizer
