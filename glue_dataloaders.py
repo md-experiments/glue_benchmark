@@ -36,11 +36,11 @@ def prep_inputs_masks(df, category_dict, tokenizer, task=0, MAX_LEN=128):
 
   # We need to add special tokens at the beginning and end of each sentence for BERT to work properly
   if task =='sentiment':
-    sentences = ["[CLS] " + sentences[idx]  for idx in range(len(sentences))]
+    sentences = ["[CLS] " + sentences[idx]+ " [SEP]"  for idx in range(len(sentences))]
     #sentences = ["[CLS] " + sentences[idx] + " [SEP]" + ' ' +str(mentions[idx]) + " [SEP]" for idx in range(len(sentences))]
   elif task =='similarity':
     sentences1 = df.sent1.values
-    sentences = ["[CLS] " + sentences[idx] + " [SEP] " + sentences1[idx]  for idx in range(len(sentences))]
+    sentences = ["[CLS] " + sentences[idx] + " [SEP] " + sentences1[idx] + " [SEP]" for idx in range(len(sentences))]
     #sentences = [("[CLS] " + sentences[idx].lower() + " [SEP]").replace(str(mentions[idx].lower()),' [MASK] ') + ' '+ str(mentions[idx]) + " [SEP]"  \
     #             for idx in range(len(sentences))]
   else:
