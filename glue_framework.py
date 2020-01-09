@@ -1,6 +1,6 @@
 import torch
 
-def train(model, iterator, optimizer, criterion, metric, task_type):
+def train(model, iterator, optimizer, criterion, metric, device):
     
     epoch_loss = 0
     epoch_acc = 0
@@ -11,14 +11,20 @@ def train(model, iterator, optimizer, criterion, metric, task_type):
         
         optimizer.zero_grad()
         
-        if task_type=='sentiment':
-          predictions = model(batch.text).squeeze(1)
+        batch = tuple(t.to(device) for t in batch)
+        #if task_type=='sentiment':
+        text, label = batch
+        predictions = model(text).squeeze(1)
+        #predictions = model(batch.text).squeeze(1)
+        '''
         elif task_type=='similarity':
-          predictions = model(batch.text,batch.text2).squeeze(1)
+          text, textlabel = batch
+          predictions = model(text, text1).squeeze(1)
+          #predictions = model(batch.text,batch.text2).squeeze(1)
+        '''
+        loss = criterion(predictions, label)
         
-        loss = criterion(predictions, batch.label)
-        
-        acc = metric(predictions, batch.label)
+        acc = metric(predictions, label)
         
         loss.backward()
         
@@ -29,7 +35,7 @@ def train(model, iterator, optimizer, criterion, metric, task_type):
         
     return epoch_loss / len(iterator), epoch_acc / len(iterator)
 
-def evaluate(model, iterator, criterion, metric, task_type):
+def evaluate(model, iterator, criterion, metric, device):
     
     epoch_loss = 0
     epoch_acc = 0
@@ -39,15 +45,15 @@ def evaluate(model, iterator, criterion, metric, task_type):
     with torch.no_grad():
     
         for batch in iterator:
+            batch = tuple(t.to(device) for t in batch)
+            #if task_type=='sentiment':
+            text, label = batch
 
-            if task_type=='sentiment':
-              predictions = model(batch.text).squeeze(1)
-            elif task_type=='similarity':
-              predictions = model(batch.text,batch.text2).squeeze(1)
+            predictions = model(text).squeeze(1)
             
-            loss = criterion(predictions, batch.label)
+            loss = criterion(predictions, label)
             
-            acc = metric(predictions, batch.label)
+            acc = metric(predictions, label)
 
             epoch_loss += loss.item()
             epoch_acc += acc.item()
