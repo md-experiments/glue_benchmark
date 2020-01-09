@@ -116,7 +116,7 @@ class BERTGRUSimilarity(nn.Module):
         return logits
 
 
-def train_variables(bert, task_type):
+def train_variables(bert, task_type, device):
   HIDDEN_DIM = 256
   OUTPUT_DIM = 1
   N_LAYERS = 2
