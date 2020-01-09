@@ -1,4 +1,5 @@
 import torch
+import torchtext
 
 def train(model, iterator, optimizer, criterion, metric, device):
     
