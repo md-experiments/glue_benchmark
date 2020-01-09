@@ -18,6 +18,8 @@ def train(model, iterator, optimizer, criterion, metric, device):
           text, label = batch
         elif type(batch)== torchtext.data.iterator.Iterator:
           text, label = batch.text, batch.label
+        else:
+          print(type(batch))       
         predictions = model(text).squeeze(1)
         #predictions = model(batch.text).squeeze(1)
         '''
