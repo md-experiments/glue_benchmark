@@ -23,9 +23,9 @@ def get_device():
 
 def train(model, iterator, optimizer, criterion, metric, device):
     
-    epoch_loss = 0
-    epoch_acc = 0
-    
+    #epoch_loss = 0
+    #epoch_acc = 0
+    epoch_label , epoch_preds = [], []
     model.train()
     
     for batch in iterator:
@@ -48,18 +48,22 @@ def train(model, iterator, optimizer, criterion, metric, device):
           predictions = model(text, text1).squeeze(1)
           #predictions = model(batch.text,batch.text2).squeeze(1)
         '''
-        loss = criterion(predictions, label)
+        #loss = criterion(predictions, label)
         
-        acc = metric(predictions, label)
-        
-        loss.backward()
-        
-        optimizer.step()
-        
-        epoch_loss += loss.item()
-        epoch_acc += acc.item()
-        
-    return epoch_loss / len(iterator), epoch_acc / len(iterator)
+        #acc = metric(predictions, label)
+        epoch_label.append(label)
+        epoch_preds.append(predictions)
+
+        #epoch_loss += loss.item()
+        #epoch_acc += acc.item()
+
+    epoch_label=torch.cat(epoch_label,0)
+    epoch_preds=torch.cat(epoch_preds,0)
+
+    epoch_loss = criterion(epoch_preds, epoch_label)
+    epoch_acc = metric(epoch_preds, epoch_label)
+    #return epoch_loss / len(iterator), epoch_acc / len(iterator)
+    return epoch_loss, epoch_acc
 
 def evaluate(model, iterator, criterion, metric, device):
     
@@ -92,7 +96,7 @@ def evaluate(model, iterator, criterion, metric, device):
 
     epoch_label=torch.cat(epoch_label,0)
     epoch_preds=torch.cat(epoch_preds,0)
-    
+
     epoch_loss = criterion(epoch_preds, epoch_label)
     epoch_acc = metric(epoch_preds, epoch_label)
     #return epoch_loss / len(iterator), epoch_acc / len(iterator)
@@ -125,9 +129,12 @@ def matthews_corr(preds, y):
 
     #round predictions to the closest integer
     rounded_preds = torch.round(torch.sigmoid(preds))
-    correct = (rounded_preds == y).float() #convert into float for division 
-    acc = correct.sum() / len(correct)
-    return acc
+    rounded_preds = rounded_preds.to('cpu').numpy().flatten()
+    y = y.to('cpu').numpy().flatten()
+    #correct = (rounded_preds == y).float() #convert into float for division 
+    #acc = correct.sum() / len(correct)
+  
+    return matthews_corrcoef(y,rounded_preds)
 
 def train_model(trn_iter, val_iter, model, optimizer, criterion, metric, exp_name, task_type, device, N_EPOCHS = 12):
   
