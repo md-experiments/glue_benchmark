@@ -129,7 +129,7 @@ def matthews_corr(preds, y):
 
     #round predictions to the closest integer
     rounded_preds = torch.round(torch.sigmoid(preds))
-    rounded_preds = rounded_preds.to('cpu').numpy().flatten()
+    rounded_preds = rounded_preds.detach().cpu().numpy().flatten()
     y = y.to('cpu').numpy().flatten()
     #correct = (rounded_preds == y).float() #convert into float for division 
     #acc = correct.sum() / len(correct)
