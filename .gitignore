@@ -5,6 +5,8 @@ tmp/
 # Model checkpoints
 *.pt
 
+
+.DS_Store
 __pycache__/
 
 # Jupyter
