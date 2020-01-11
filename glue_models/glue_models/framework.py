@@ -3,6 +3,7 @@ import torchtext
 import random
 import numpy as np
 import pandas as pd
+from sklearn.metrics import matthews_corrcoef
 
 def get_device():
   # If there's a GPU available...
@@ -62,13 +63,14 @@ def train(model, iterator, optimizer, criterion, metric, device):
 
 def evaluate(model, iterator, criterion, metric, device):
     
-    epoch_loss = 0
-    epoch_acc = 0
+    #epoch_loss = 0
+    #epoch_acc = 0
     
     model.eval()
-    
+
+    epoch_label , epoch_preds = [], []
     with torch.no_grad():
-    
+
         for batch in iterator:
             try:
               text, label = batch.text, batch.label
@@ -79,14 +81,22 @@ def evaluate(model, iterator, criterion, metric, device):
               text, label = batch
             predictions = model(text).squeeze(1)
             
-            loss = criterion(predictions, label)
+            #loss = criterion(predictions, label)
             
-            acc = metric(predictions, label)
+            #acc = metric(predictions, label)
+            epoch_label.append(label)
+            epoch_preds.append(predictions)
 
-            epoch_loss += loss.item()
-            epoch_acc += acc.item()
-        
-    return epoch_loss / len(iterator), epoch_acc / len(iterator)
+            #epoch_loss += loss.item()
+            #epoch_acc += acc.item()
+
+    epoch_label=torch.cat(epoch_label,0)
+    epoch_preds=torch.cat(epoch_preds,0)
+    
+    epoch_loss = criterion(epoch_preds, epoch_label)
+    epoch_acc = metric(epoch_preds, epoch_label)
+    #return epoch_loss / len(iterator), epoch_acc / len(iterator)
+    return epoch_loss, epoch_acc
 
 import time
 
@@ -97,6 +107,18 @@ def epoch_time(start_time, end_time):
     return elapsed_mins, elapsed_secs
 
 def binary_accuracy(preds, y):
+    """
+    Returns accuracy per batch, i.e. if you get 8/10 right, this returns 0.8, NOT 8
+    """
+
+    #round predictions to the closest integer
+    rounded_preds = torch.round(torch.sigmoid(preds))
+    correct = (rounded_preds == y).float() #convert into float for division 
+    acc = correct.sum() / len(correct)
+    return acc
+
+
+def matthews_corr(preds, y):
     """
     Returns accuracy per batch, i.e. if you get 8/10 right, this returns 0.8, NOT 8
     """

@@ -1,0 +1,14 @@
+#--extra-index-url=${PIP_EXTRA_INDEX_URL}
+
+# api
+flask==1.0.2
+
+# schema validation
+marshmallow==2.17.0
+
+# Install from gemfury
+glue_models==1.0.0
+
+
+# Deployment
+#gunicorn==19.9.0
