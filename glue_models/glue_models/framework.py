@@ -51,8 +51,8 @@ def train(model, iterator, optimizer, criterion, metric, device):
         #loss = criterion(predictions, label)
         
         #acc = metric(predictions, label)
-        epoch_label.append(label)
-        epoch_preds.append(predictions)
+        epoch_label.append(label.to('cpu'))
+        epoch_preds.append(predictions.detach().cpu())
 
         #epoch_loss += loss.item()
         #epoch_acc += acc.item()
@@ -89,7 +89,7 @@ def evaluate(model, iterator, criterion, metric, device):
             
             #acc = metric(predictions, label)
             epoch_label.append(label.to('cpu'))
-            epoch_preds.append(predictions.to('cpu'))
+            epoch_preds.append(predictions.detach().cpu())
 
             #epoch_loss += loss.item()
             #epoch_acc += acc.item()
@@ -129,8 +129,8 @@ def matthews_corr(preds, y):
 
     #round predictions to the closest integer
     rounded_preds = torch.round(torch.sigmoid(preds))
-    rounded_preds = rounded_preds.to('cpu').numpy().flatten()
-    y = y.to('cpu').numpy().flatten()
+    rounded_preds = rounded_preds.numpy().flatten()
+    y = y.numpy().flatten()
     #correct = (rounded_preds == y).float() #convert into float for division 
     #acc = correct.sum() / len(correct)
   
