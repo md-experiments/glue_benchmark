@@ -50,7 +50,7 @@ def train(model, iterator, optimizer, criterion, metric, device):
         '''
         loss = criterion(predictions, label)
         
-        acc = metric(predictions.clone().data, label)
+        acc = metric(predictions, label)
         #epoch_label.append(label.to('cpu'))
         #epoch_preds.append(predictions.detach().cpu())
 
@@ -89,7 +89,7 @@ def evaluate(model, iterator, criterion, metric, device):
             
             #acc = metric(predictions, label)
             epoch_label.append(label)
-            epoch_preds.append(predictions.clone().data)
+            epoch_preds.append(predictions)
 
             #epoch_loss += loss.item()
             #epoch_acc += acc.item()
@@ -128,13 +128,21 @@ def matthews_corr(preds, y):
     """
 
     #round predictions to the closest integer
-    rounded_preds = torch.round(torch.sigmoid(preds))
-    rounded_preds = rounded_preds.detach().cpu().numpy().flatten()
-    y = y.to('cpu').numpy().flatten()
+    y_pr_torch = torch.round(torch.sigmoid(preds))
+    y_tr_torch = torch.round(y)
+
+    tp = ((y_tr_torch==1) & (y_pr_torch==1)).sum().numpy()
+    tn = ((y_tr_torch==0) & (y_pr_torch==0)).sum().numpy()
+    fp = ((y_tr_torch==0) & (y_pr_torch==1)).sum().numpy()
+    fn = ((y_tr_torch==1) & (y_pr_torch==0)).sum().numpy()
+
+    mcc = (tp * tn - fp * fn) / np.sqrt((tp+fp)*(tp+fn)*(tn+fp)*(tn+fn))
+    #rounded_preds = rounded_preds.detach().cpu().numpy().flatten()
+    #y = y.to('cpu').numpy().flatten()
     #correct = (rounded_preds == y).float() #convert into float for division 
     #acc = correct.sum() / len(correct)
-  
-    return matthews_corrcoef(y,rounded_preds)
+    return mcc
+    #return matthews_corrcoef(y,rounded_preds)
 
 def train_model(trn_iter, val_iter, model, optimizer, criterion, metric, exp_name, task_type, device, N_EPOCHS = 12):
   
