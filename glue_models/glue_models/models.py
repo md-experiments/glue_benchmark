@@ -116,12 +116,12 @@ class BERTGRUSimilarity(nn.Module):
         return logits
 
 
-def train_variables(bert, task_type, device):
-  HIDDEN_DIM = 256
-  OUTPUT_DIM = 1
-  N_LAYERS = 2
-  BIDIRECTIONAL = True
-  DROPOUT = 0.25
+def train_variables(bert, task_type, device, params):
+  HIDDEN_DIM = params['HIDDEN_DIM']
+  OUTPUT_DIM = params['OUTPUT_DIM']
+  N_LAYERS = params['N_LAYERS']
+  BIDIRECTIONAL = params['BIDIRECTIONAL']
+  DROPOUT = params['DROPOUT']
 
   import torch.optim as optim
 
