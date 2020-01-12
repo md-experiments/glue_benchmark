@@ -4,6 +4,7 @@ import random
 import numpy as np
 import pandas as pd
 from sklearn.metrics import matthews_corrcoef
+from sklearn.metrics import f1_score, accuracy_score
 
 def get_device():
   # If there's a GPU available...
@@ -123,6 +124,29 @@ def binary_accuracy(preds, y):
     acc = correct.sum() / len(correct)
     return acc
 
+def f1_torch(preds, y):
+    """
+    F1 score multi-class
+    """
+
+    #round predictions to the closest integer
+
+    y_pred_new=torch.argmax(torch.sigmoid(preds),dim=1).to('cpu').numpy()
+    y_true_new=y.to('cpu').numpy()
+    f1_res=f1_score(y_true_new, y_pred_new, average='micro')
+    return f1_res
+
+def accuracy_torch(preds, y):
+    """
+    Accuracy Score multi-class
+    """
+
+    #round predictions to the closest integer
+
+    y_pred_new=torch.argmax(torch.sigmoid(preds),dim=1).to('cpu').numpy()
+    y_true_new=y.to('cpu').numpy()
+    acc=accuracy_score(y_true_new, y_pred_new)
+    return acc
 
 def matthews_corr(preds, y):
     """
@@ -130,6 +154,7 @@ def matthews_corr(preds, y):
     """
 
     #round predictions to the closest integer
+    
     y_pr_torch = torch.round(torch.sigmoid(preds))
     y_tr_torch = torch.round(y)
 
