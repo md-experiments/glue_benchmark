@@ -48,7 +48,7 @@ def train(model, iterator, optimizer, criterion, metric, device):
           predictions = model(text, text1).squeeze(1)
           #predictions = model(batch.text,batch.text2).squeeze(1)
         '''
-        loss = criterion(predictions, label)
+        loss = criterion(predictions, label.long())
         
         acc = metric(predictions, label)
         #epoch_label.append(label.to('cpu'))
@@ -96,7 +96,7 @@ def evaluate(model, iterator, criterion, metric, device):
             #epoch_loss += loss.item()
             #epoch_acc += acc.item()
 
-    epoch_label=torch.cat(epoch_label,0)
+    epoch_label=torch.cat(epoch_label,0).long()
     epoch_preds=torch.cat(epoch_preds,0)
 
     epoch_loss = criterion(epoch_preds, epoch_label)
