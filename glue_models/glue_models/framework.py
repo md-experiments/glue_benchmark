@@ -137,8 +137,10 @@ def matthews_corr(preds, y):
     tn = ((y_tr_torch==0) & (y_pr_torch==0)).sum().to('cpu').numpy()
     fp = ((y_tr_torch==0) & (y_pr_torch==1)).sum().to('cpu').numpy()
     fn = ((y_tr_torch==1) & (y_pr_torch==0)).sum().to('cpu').numpy()
-
-    mcc = (tp * tn - fp * fn) / np.sqrt((tp+fp)*(tp+fn)*(tn+fp)*(tn+fn))
+    try:
+      mcc = (tp * tn - fp * fn) / np.sqrt((tp+fp)*(tp+fn)*(tn+fp)*(tn+fn))
+    except:
+      mcc=1
     #rounded_preds = rounded_preds.detach().cpu().numpy().flatten()
     #y = y.to('cpu').numpy().flatten()
     #correct = (rounded_preds == y).float() #convert into float for division 
