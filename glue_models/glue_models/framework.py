@@ -50,8 +50,7 @@ def train(model, iterator, optimizer, criterion, metric, device):
         '''
         loss = criterion(predictions, label)
         
-        with torch.no_grad():
-          acc = metric(predictions, label)
+        acc = metric(predictions.clone(), label)
         #epoch_label.append(label.to('cpu'))
         #epoch_preds.append(predictions.detach().cpu())
 
