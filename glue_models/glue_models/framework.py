@@ -53,7 +53,9 @@ def train(model, iterator, optimizer, criterion, metric, device):
         acc = metric(predictions, label)
         #epoch_label.append(label.to('cpu'))
         #epoch_preds.append(predictions.detach().cpu())
-
+        loss.backward()		
+        optimizer.step()
+        
         epoch_loss += loss.item()
         epoch_acc += acc.item()
 
