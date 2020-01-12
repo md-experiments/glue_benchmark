@@ -18,7 +18,7 @@ Apart from measuring the progress of research in NLP and NLP transfer learning, 
 | MNLI-mm | Same as above, Mismatched- refers to mismatch between trained domains and test domains | Sent1, Sent2 | entailment, contradiction, or neutral | Accuracy, F1 | | |
 | QNLI | Stanford Question Answering Dataset (SQuAD), determine what is the answer and if the answer is available in the paragraph reference | Question, Paragraph | Binary & Sequence with the answer | Accuracy | 99% | 83% |
 | RTE | Recognising Textual Entailment | Sent1, Sent2 | entailment, contradiction, or neutral | Accuracy, F1 | 91% | 54% |
-| WNLI | Winograd Schema, Pronoun ambiguity where the answer requires world knowledge and not only grammatical context | Sent1, Sent2 | entailment, contradiction, or neutral | Accuracy, F1 | | |
+| WNLI | Winograd Schema, Pronoun ambiguity where the answer requires world knowledge and not only grammatical context | Sent1, Sent2 | entailment, contradiction, or neutral | Accuracy, F1 | 91% | 56% |
 | AX | DiagnosticMain, Different entailment relationships of arbitrary size predominantly for diagnostic purposes | Sent1, Sent2 | entailment, contradiction, or neutral | Accuracy, F1 |  |  . |
 
 Some of the above are not necessarily relevant
