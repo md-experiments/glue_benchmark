@@ -88,7 +88,7 @@ def evaluate(model, iterator, criterion, metric, device):
             #loss = criterion(predictions, label)
             
             #acc = metric(predictions, label)
-            epoch_label.append(label.to('cpu'))
+            epoch_label.append(label)
             epoch_preds.append(predictions.clone().data)
 
             #epoch_loss += loss.item()
