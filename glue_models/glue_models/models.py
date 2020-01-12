@@ -122,6 +122,11 @@ def train_variables(bert, task_type, device, params):
   N_LAYERS = params['N_LAYERS']
   BIDIRECTIONAL = params['BIDIRECTIONAL']
   DROPOUT = params['DROPOUT']
+  OPTIM = params['OPTIMIZER']
+
+  #OPTIM_LR = params['OPTIMIZER_LR']
+  #OPTIM_EPS = params['OPTIMIZER_EPS']
+  LOSS = params['LOSS']
 
   import torch.optim as optim
 
@@ -145,8 +150,15 @@ def train_variables(bert, task_type, device, params):
   print(f'The model has {count_parameters(model):,} trainable parameters')
 
   ### --- Optimizer & Loss --- ###
-  optimizer = optim.Adam(model.parameters())
-  criterion = nn.BCEWithLogitsLoss()
+  if OPTIM == 'Adam':
+      optimizer = optim.Adam(model.parameters())
+  elif OPTIM == 'AdamW':
+      1
+
+  if LOSS=='BCEWithLogits':
+      criterion = nn.BCEWithLogitsLoss()
+  elif LOSS == 'CrossEntropy':
+      criterion = nn.CrossEntropyLoss()
 
   if device.type=='cuda':
     model = model.to(device)
