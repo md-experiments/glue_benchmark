@@ -8,7 +8,7 @@ Apart from measuring the progress of research in NLP and NLP transfer learning, 
 ## Glue Tasks
 
 | Index | Description | Inputs | Target | Metric | SOTA | Huggingface | Best here |
-|----|----|----|----|----|----|----|
+|----|----|----|----|----|----|----|----|
 |CoLA | Linguistic acceptability | Sent1 | Binary | Matthews Correlation | |49% | 48% |
 | SST-2 | Sentiment analysis | Sent1 | Binary | Accuracy | |92% | 91% |
 | MRPC | Sentence equivalence | Sent1, Sent2 | Binary | Accuracy | | 87% | 80% |
