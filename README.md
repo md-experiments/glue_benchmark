@@ -7,12 +7,12 @@ Apart from measuring the progress of research in NLP and NLP transfer learning, 
 
 ## Glue Tasks
 
-| Index | Description | Inputs | Target | Metric | SOTA | Huggingface | Best here |
+| Index | Description | Inputs | Target | Metric | SOTA | 🤗 | Best here |
 |----|----|----|----|----|----|----|----|
 |CoLA | Linguistic acceptability | Sent1 | Binary | Matthews Correlation | 72% |49% | 48% |
 | SST-2 | Sentiment analysis | Sent1 | Binary | Accuracy | 97.5%|92% | 91% |
 | MRPC | Sentence equivalence | Sent1, Sent2 | Binary | Accuracy | 93%| 87% | 80% |
-| STS-B | Meaning similarity | Sent1, Sent2 | Regression | Correlation | 93% | 91.4$ | |
+| STS-B | Meaning similarity | Sent1, Sent2 | Regression | Correlation | 93% | 91.4% | |
 | QQP | Quora Question Pairs, Question equivalence (binary) | Sent1, Sent2 | Binary | Accuracy | 91% |88% | 86% |
 | MNLI-m | Matched-Textual entailment | Sent1, Sent2 | entailment, no entailment | Accuracy, F1 | 91%| 84%| |
 | MNLI-mm | Same as above, Mismatched - trained domains vs test domains | Sent1, Sent2 | entailment, no entailment | Accuracy, F1 | 90.6% | 85%| |
