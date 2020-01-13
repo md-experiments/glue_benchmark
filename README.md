@@ -14,7 +14,7 @@ Apart from measuring the progress of research in NLP and NLP transfer learning, 
 | MRPC | Sentence equivalence | Sent1, Sent2 | Binary | Accuracy | 93%| 87% | 80% |
 | STS-B | Meaning similarity | Sent1, Sent2 | Regression | Correlation | 93% | 91.4% | |
 | QQP | Quora Question Pairs, Question equivalence (binary) | Sent1, Sent2 | Binary | Accuracy | 91% |88% | 86% |
-| MNLI-m | Matched-Textual entailment | Sent1, Sent2 | entailment, no entailment | Accuracy, F1 | 91%| 84%| |
+| MNLI-m | Matched-Textual entailment | Sent1, Sent2 | entailment, no entailment | Accuracy, F1 | 91%| 84%| 75%|
 | MNLI-mm | Same as above, Mismatched - trained domains vs test domains | Sent1, Sent2 | entailment, no entailment | Accuracy, F1 | 90.6% | 85%| |
 | QNLI | Stanford Question Answering Dataset (SQuAD), determine what is the answer and if the answer is available in the paragraph reference | Question, Paragraph | Binary & Sequence with the answer | Accuracy | 98% | 89% | 83% |
 | RTE | Recognising Textual Entailment | Sent1, Sent2 | entailment, contradiction, or neutral | Accuracy, F1 |91% | 71.4% | 54% |
