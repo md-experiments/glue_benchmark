@@ -14,7 +14,7 @@ __pycache__/
 
 #Environments
 api_env/
-
+env/
 
 
 # Distribution / packaging

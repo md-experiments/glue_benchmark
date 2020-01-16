@@ -49,7 +49,7 @@ def train(model, iterator, optimizer, criterion, metric, device):
           predictions = model(text, text1).squeeze(1)
           #predictions = model(batch.text,batch.text2).squeeze(1)
         '''
-        loss = criterion(predictions, label.long())
+        loss = criterion(predictions, label)
         
         acc = metric(predictions, label)
         #epoch_label.append(label.to('cpu'))
