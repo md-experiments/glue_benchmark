@@ -10,7 +10,7 @@ keras==2.2.5
 
 # packaging
 setuptools==40.6.3
-wheel==0.32.3
+wheel==0.38.1
 
 # testing requirements
 pytest>=4.6.6,<5.0.0
