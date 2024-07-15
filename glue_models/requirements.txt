@@ -10,7 +10,7 @@ keras==2.2.5
 
 # packaging
 wheel==0.38.1
-setuptools==65.5.1
+setuptools==70.0.0
 
 
 
