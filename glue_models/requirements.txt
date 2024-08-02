@@ -6,7 +6,7 @@ torch==1.13.1
 torchtext==0.3.1
 transformers==4.38.0
 tensorflow==2.11.1
-keras==2.2.5
+keras==2.13.1
 
 # packaging
 wheel==0.38.1
